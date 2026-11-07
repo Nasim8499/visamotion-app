@@ -1,4 +1,4 @@
-import { Footer, Nav } from "./components/Chrome";
+import { Footer, Nav, TabBar } from "./components/Chrome";
 import { useRoute } from "./router";
 import Home from "./pages/Home";
 import PageView from "./pages/PageView";
@@ -27,12 +27,13 @@ function View({ route }: { route: string }) {
 export default function App() {
   const route = useRoute();
   return (
-    <div className="min-h-[100dvh]">
+    <div className="min-h-[100dvh] pb-tabbar md:pb-0">
       <Nav />
       <main>
         <View route={route} />
       </main>
       <Footer />
+      <TabBar />
     </div>
   );
 }

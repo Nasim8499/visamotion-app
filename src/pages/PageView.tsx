@@ -74,7 +74,7 @@ export default function PageView({ route }: { route: string }) {
       </header>
 
       <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
-        <div className="prose max-w-[720px]">
+        <div className="panel prose max-w-[760px]">
           {sections.nodes.map((n, i) => {
             if (n.kind === "h") {
               if (n.level === 2)
@@ -121,8 +121,8 @@ export default function PageView({ route }: { route: string }) {
 
         {sections.toc.length > 2 && (
           <aside className="hidden lg:block">
-            <div className="sticky top-20">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--muted)]">
+            <div className="card sticky top-24 p-4">
+              <p className="text-[11.5px] font-bold uppercase tracking-[0.08em] text-[var(--blue-deep)]">
                 On this page
               </p>
               <ul className="mt-3 space-y-2 border-l border-[var(--line)] pl-3">

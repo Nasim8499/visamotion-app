@@ -1,19 +1,12 @@
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronRight, Menu, Search, X } from "lucide-react";
+import { ChevronRight, Calculator, HelpCircle, House, Layers, Menu, MessageCircle, Search, X } from "lucide-react";
 import { Link, navigate, useRoute } from "../router";
 import { navGroups, pages, routeList } from "../content";
 
 export const BRAND = "VisaMOTion365";
 
-export function Reveal({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
+export function Reveal({ children, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   return <div className={className}>{children}</div>;
 }
 
@@ -25,9 +18,7 @@ export function SearchSheet({ open, onClose }: { open: boolean; onClose: () => v
     return routeList
       .filter((r) => {
         const p = pages[r];
-        return (p.title + " " + r + " " + p.blocks.slice(0, 6).map((b) => b.x).join(" "))
-          .toLowerCase()
-          .includes(term);
+        return (p.title + " " + r + " " + p.blocks.slice(0, 6).map((b) => b.x).join(" ")).toLowerCase().includes(term);
       })
       .slice(0, 14);
   }, [q]);
@@ -40,7 +31,7 @@ export function SearchSheet({ open, onClose }: { open: boolean; onClose: () => v
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[80] flex items-start justify-center bg-black/25 p-4 pt-20 backdrop-blur-sm"
+          className="fixed inset-0 z-[80] flex items-start justify-center bg-slate-900/25 p-4 pt-24 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -61,7 +52,7 @@ export function SearchSheet({ open, onClose }: { open: boolean; onClose: () => v
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Search services, tools, guides"
-                className="h-14 flex-1 bg-transparent text-[17px] outline-none placeholder:text-[var(--muted)]"
+                className="h-14 flex-1 bg-transparent text-[16px] outline-none placeholder:text-[var(--muted)]"
               />
               <button onClick={onClose} aria-label="Close search" className="p-2 text-[var(--muted)]">
                 <X size={18} />
@@ -78,7 +69,7 @@ export function SearchSheet({ open, onClose }: { open: boolean; onClose: () => v
                     navigate(r);
                     onClose();
                   }}
-                  className="flex w-full items-center justify-between gap-3 rounded-xl px-3 py-3 text-left hover:bg-[var(--band)]"
+                  className="flex w-full items-center justify-between gap-3 rounded-xl px-3 py-3 text-left hover:bg-white/70"
                 >
                   <span className="truncate text-[15px]">{pages[r].title}</span>
                   <ChevronRight size={16} className="shrink-0 text-[var(--muted)]" />
@@ -97,40 +88,33 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[70] bg-[var(--bg)] pt-16"
+          className="fixed inset-0 z-[70] overflow-y-auto bg-[#f4f8ff] pt-20"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
         >
-          <div className="shell h-full overflow-y-auto pb-24">
+          <div className="shell pb-tabbar">
             {navGroups.map((g) => (
-              <div key={g.label} className="border-b border-[var(--line)] py-4">
-                <p className="eyebrow mb-2">{g.label}</p>
-                <div className="grid gap-1">
+              <div key={g.label} className="mb-3 rounded-2xl border border-white/70 bg-white/60 p-4 backdrop-blur-xl">
+                <p className="mb-1 text-[11.5px] font-bold uppercase tracking-[0.08em] text-[var(--blue-deep)]">
+                  {g.label}
+                </p>
+                <div className="grid">
                   {g.items.map((i) => (
                     <Link
                       key={i.to}
                       to={i.to}
                       onClick={onClose}
-                      className="flex min-h-[44px] items-center justify-between text-[17px]"
+                      className="flex min-h-[44px] items-center justify-between text-[16px]"
                     >
                       <span className="truncate pr-3">{i.title}</span>
-                      <ChevronRight size={16} className="text-[var(--muted)]" />
+                      <ChevronRight size={16} className="shrink-0 text-[var(--muted)]" />
                     </Link>
                   ))}
                 </div>
               </div>
             ))}
-            <button
-              onClick={() => {
-                navigate("/contact-us");
-                onClose();
-              }}
-              className="btn btn-primary mt-6 w-full"
-            >
-              Get started
-            </button>
           </div>
         </motion.div>
       )}
@@ -142,7 +126,6 @@ export function Nav() {
   const [menu, setMenu] = React.useState(false);
   const [search, setSearch] = React.useState(false);
   const [openGroup, setOpenGroup] = React.useState<string | null>(null);
-  const route = useRoute();
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -158,9 +141,9 @@ export function Nav() {
   return (
     <>
       <nav className="nav-bar">
-        <div className="shell flex h-[50px] items-center gap-6">
-          <Link to="/" className="tap flex items-center gap-2 text-[13px] font-semibold">
-            <span className="grid h-6 w-6 place-items-center rounded-[6px] bg-[var(--text)] text-[11px] font-bold text-[var(--bg)]">
+        <div className="shell flex h-[52px] items-center gap-6">
+          <Link to="/" className="flex items-center gap-2 text-[13px] font-bold">
+            <span className="grid h-7 w-7 place-items-center rounded-[9px] bg-gradient-to-b from-[#4a9dff] to-[var(--blue-deep)] text-[12px] font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
               V
             </span>
             <span className="hidden sm:inline">{BRAND}</span>
@@ -174,7 +157,7 @@ export function Nav() {
                 onMouseEnter={() => setOpenGroup(g.label)}
                 onMouseLeave={() => setOpenGroup(null)}
               >
-                <button className="nav-link py-3">{g.label}</button>
+                <button className="nav-link py-4">{g.label}</button>
                 <AnimatePresence>
                   {openGroup === g.label && (
                     <motion.div
@@ -185,11 +168,7 @@ export function Nav() {
                       transition={{ duration: 0.18 }}
                     >
                       {g.items.map((i) => (
-                        <Link
-                          key={i.to}
-                          to={i.to}
-                          className="block truncate rounded-lg px-3 py-2 text-[13px] hover:bg-[var(--band)]"
-                        >
+                        <Link key={i.to} to={i.to} className="block truncate rounded-lg px-3 py-2 text-[13px] hover:bg-white/70">
                           {i.title}
                         </Link>
                       ))}
@@ -198,7 +177,7 @@ export function Nav() {
                 </AnimatePresence>
               </div>
             ))}
-            <Link to="/faq" className="nav-link py-3">
+            <Link to="/faq" className="nav-link py-4">
               FAQ
             </Link>
           </div>
@@ -207,21 +186,17 @@ export function Nav() {
             <button
               onClick={() => setSearch(true)}
               aria-label="Search"
-              className="grid h-9 w-9 place-items-center rounded-full text-[var(--text)] hover:bg-[var(--band)]"
+              className="grid h-9 w-9 place-items-center rounded-full hover:bg-white/70"
             >
               <Search size={16} />
             </button>
             <Link
               to="/contact-us"
-              className="hidden min-h-[32px] items-center rounded-full bg-[var(--blue)] px-3 text-[12px] font-medium text-white sm:flex"
+              className="hidden min-h-[34px] items-center rounded-full bg-[var(--blue)] px-3.5 text-[12px] font-semibold text-white sm:flex"
             >
               Get started
             </Link>
-            <button
-              onClick={() => setMenu(true)}
-              aria-label="Menu"
-              className="grid h-9 w-9 place-items-center rounded-full md:hidden"
-            >
+            <button onClick={() => setMenu(true)} aria-label="Menu" className="grid h-9 w-9 place-items-center rounded-full md:hidden">
               <Menu size={18} />
             </button>
           </div>
@@ -229,49 +204,76 @@ export function Nav() {
       </nav>
       <MobileMenu open={menu} onClose={() => setMenu(false)} />
       <SearchSheet open={search} onClose={() => setSearch(false)} />
-      <div className="h-16" aria-hidden />
-      {route === "/" ? null : null}
+      <div className="h-[70px]" aria-hidden />
     </>
+  );
+}
+
+const TABS = [
+  { to: "/", label: "Home", Icon: House },
+  { to: "/incorporation", label: "Services", Icon: Layers },
+  { to: "/tools", label: "Tools", Icon: Calculator },
+  { to: "/faq", label: "FAQ", Icon: HelpCircle },
+  { to: "/contact-us", label: "Contact", Icon: MessageCircle },
+];
+
+export function TabBar() {
+  const route = useRoute();
+  return (
+    <nav className="tabbar md:hidden" aria-label="Sections">
+      <div className="grid grid-cols-5">
+        {TABS.map(({ to, label, Icon }) => {
+          const active = to === "/" ? route === "/" : route === to || route.startsWith(to);
+          return (
+            <Link key={to} to={to} className="tab-item" data-active={active}>
+              <Icon size={19} strokeWidth={active ? 2.4 : 1.9} />
+              <span>{label}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
   );
 }
 
 export function Footer() {
   return (
-    <footer className="band mt-20">
-      <div className="shell py-12">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {navGroups.slice(0, 4).map((g) => (
-            <div key={g.label}>
-              <p className="mb-3 text-[13px] font-semibold">{g.label}</p>
-              <ul className="space-y-2">
-                {g.items.slice(0, 6).map((i) => (
-                  <li key={i.to}>
-                    <Link to={i.to} className="text-[12px] text-[var(--muted)] hover:text-[var(--text)]">
-                      {i.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="mt-10 border-t border-[var(--line)] pt-6">
-          <p className="text-[12px] leading-relaxed text-[var(--muted)]">
-            {BRAND} PTE. LTD. Singapore. Incorporation, accounting and company secretarial services. Government
-            filings are submitted by licensed professionals, and every statutory deadline remains the
-            responsibility of the company.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
-            {navGroups[4].items.map((i) => (
-              <Link key={i.to} to={i.to} className="text-[12px] text-[var(--muted)] hover:text-[var(--text)]">
-                {i.title}
-              </Link>
+    <footer className="mt-14 px-2.5">
+      <div className="band pb-8 pt-10">
+        <div className="shell">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {navGroups.slice(0, 4).map((g) => (
+              <div key={g.label}>
+                <p className="mb-3 text-[12.5px] font-bold">{g.label}</p>
+                <ul className="space-y-2">
+                  {g.items.slice(0, 6).map((i) => (
+                    <li key={i.to}>
+                      <Link to={i.to} className="text-[12.5px] text-[var(--muted)] hover:text-[var(--text)]">
+                        {i.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-            <span className="text-[12px] text-[var(--muted)]">© 2026 {BRAND}</span>
+          </div>
+          <div className="mt-9 border-t border-[var(--line)] pt-5">
+            <p className="text-[12px] leading-relaxed text-[var(--muted)]">
+              {BRAND} PTE. LTD. Singapore. Incorporation, accounting and company secretarial services. Government
+              filings are submitted by licensed professionals, and every statutory deadline remains the
+              responsibility of the company.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+              {navGroups[4].items.map((i) => (
+                <Link key={i.to} to={i.to} className="text-[12px] text-[var(--muted)] hover:text-[var(--text)]">
+                  {i.title}
+                </Link>
+              ))}
+              <span className="text-[12px] text-[var(--muted)]">© 2026 {BRAND}</span>
+            </div>
           </div>
         </div>
       </div>
-      <div className="safe-bottom" />
     </footer>
   );
 }
