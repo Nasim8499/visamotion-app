@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import PageView from "./pages/PageView";
 import Contact from "./pages/Contact";
 import { EbayCalculator, GstCalculator, MarginCalculator, ToolsIndex } from "./pages/Tools";
-import { AnimatePresence, motion } from "framer-motion";
 
 function View({ route }: { route: string }) {
   switch (route) {
@@ -30,17 +29,9 @@ export default function App() {
   return (
     <div className="min-h-[100dvh]">
       <Nav />
-      <AnimatePresence mode="wait">
-        <motion.main
-          key={route}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <View route={route} />
-        </motion.main>
-      </AnimatePresence>
+      <main>
+        <View route={route} />
+      </main>
       <Footer />
     </div>
   );

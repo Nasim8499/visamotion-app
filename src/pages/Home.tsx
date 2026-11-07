@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ChevronRight, Star, ArrowUpRight } from "lucide-react";
 import { Link } from "../router";
 import { BRAND, Reveal } from "../components/Chrome";
@@ -57,13 +56,8 @@ export default function Home() {
 
       <section className="shell mt-8">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-          {serviceTiles.map((t, i) => (
-            <motion.div
-              key={t.to}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            >
+          {serviceTiles.map((t) => (
+            <div key={t.to}>
               <Link to={t.to} className="tile h-full">
                 <p className="text-[17px] font-semibold tracking-[-0.01em]">{t.label}</p>
                 <p className="mt-1 text-[13px] leading-snug text-[var(--muted)]">{t.note}</p>
@@ -71,7 +65,7 @@ export default function Home() {
                   Learn more <ChevronRight size={13} />
                 </span>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -144,18 +138,13 @@ export default function Home() {
             <h2 className="h2 mt-2">Work out the numbers first</h2>
           </Reveal>
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-            {toolTiles.map((t, i) => (
-              <motion.div
-                key={t.to}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.04, duration: 0.4 }}
-              >
+            {toolTiles.map((t) => (
+              <div key={t.to}>
                 <Link to={t.to} className="tile h-full">
                   <p className="text-[15px] font-semibold">{t.label}</p>
                   <p className="mt-1 text-[12.5px] leading-snug text-[var(--muted)]">{t.note}</p>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

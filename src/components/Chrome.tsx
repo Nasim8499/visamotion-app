@@ -8,23 +8,13 @@ export const BRAND = "VisaMOTion365";
 
 export function Reveal({
   children,
-  delay = 0,
   className,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
 }) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 export function SearchSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
