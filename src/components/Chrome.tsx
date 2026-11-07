@@ -158,7 +158,7 @@ export function Nav() {
   return (
     <>
       <nav className="nav-bar">
-        <div className="shell flex h-12 items-center gap-6">
+        <div className="shell flex h-[50px] items-center gap-6">
           <Link to="/" className="tap flex items-center gap-2 text-[13px] font-semibold">
             <span className="grid h-6 w-6 place-items-center rounded-[6px] bg-[var(--text)] text-[11px] font-bold text-[var(--bg)]">
               V
@@ -229,7 +229,7 @@ export function Nav() {
       </nav>
       <MobileMenu open={menu} onClose={() => setMenu(false)} />
       <SearchSheet open={search} onClose={() => setSearch(false)} />
-      <div className="h-12" aria-hidden />
+      <div className="h-16" aria-hidden />
       {route === "/" ? null : null}
     </>
   );
